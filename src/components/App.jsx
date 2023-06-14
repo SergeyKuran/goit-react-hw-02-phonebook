@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 
 import { nanoid } from 'nanoid';
 
+// Імпорт компонентів
 import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
 
+// Імпорт стилів
 import css from '../components/App.module.css';
 
 class App extends Component {
@@ -19,24 +21,56 @@ class App extends Component {
     filter: '',
   };
 
-  addFilter(evt) {
+  // // Метод виделення об'єкта з масиву
+  deleteObject = id => {
+    this.setState(prevetState => {
+      return {
+        contacts: prevetState.contacts.filter(el => el.id !== id),
+      };
+    });
+  };
+
+  // Метод добавлення об'єкта у масив
+  addObject = props => {
+    this.setState(prevetState => {
+      const name = prevetState.contacts.includes(
+        el => el.name.toLowerCase() === props.name.toLowerCase()
+      );
+
+      return {
+        // Перевірка на введених данних
+        contacts: !name
+          ? [...prevetState.contacts, props]
+          : alert(`${name.name} is already in contacts`),
+      };
+    });
+  };
+
+  // Метод стягування данних при пошуку
+  onChange = evt => {
     this.setState({
       filter: evt.target.value,
     });
-  }
+  };
 
   render() {
-    const { contacts } = this.state;
+    const { contacts, filter } = this.state;
     return (
       <>
         <div className={css.phonebook}>
           <h2>Phonebook</h2>
-          <ContactForm />
+          <ContactForm onSubmit={this.addObject} />
         </div>
         <div className={css.contacts}>
           <h3>Contacts</h3>
-          <Filter filter={this.addFilter} value={this.state.filter} />
-          <ContactList contacts={contacts} />
+          <Filter filter={filter} onChange={this.onChange} />
+          {filter && (
+            <ContactList
+              contacts={contacts}
+              filter={filter}
+              deleteObject={this.deleteObject}
+            />
+          )}
         </div>
       </>
     );
