@@ -32,17 +32,15 @@ class App extends Component {
 
   // Метод добавлення об'єкта у масив
   addObject = props => {
-    this.setState(prevetState => {
-      const name = prevetState.contacts.includes(
-        el => el.name.toLowerCase() === props.name.toLowerCase()
-      );
+    const find = this.state.contacts.find(el => el.name === props.name);
 
-      return {
-        // Перевірка на введених данних
-        contacts: !name
-          ? [...prevetState.contacts, props]
-          : alert(`${name.name} is already in contacts`),
-      };
+    // Умова
+    if (find) {
+      return alert(`${props.name} is already in contacts`);
+    }
+
+    this.setState(prevetState => {
+      return { contacts: [...prevetState.contacts, props] };
     });
   };
 
