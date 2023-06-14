@@ -28,8 +28,8 @@ const ContactList = ({ contacts, filter, deleteObject }) => (
 );
 
 ContactList.propTypes = {
-  contacts: PropTypes.array,
-  filter: PropTypes.string,
+  contacts: PropTypes.array.isRequired,
+  filter: PropTypes.string.isRequired,
   deleteObject: PropTypes.func.isRequired,
 };
 
