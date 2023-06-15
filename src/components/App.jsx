@@ -62,13 +62,12 @@ class App extends Component {
         <div className={css.contacts}>
           <h3>Contacts</h3>
           <Filter filter={filter} onChange={this.onChange} />
-          {filter && (
-            <ContactList
-              contacts={contacts}
-              filter={filter}
-              deleteObject={this.deleteObject}
-            />
-          )}
+
+          <ContactList
+            contacts={contacts}
+            filter={filter}
+            deleteObject={this.deleteObject}
+          />
         </div>
       </>
     );
