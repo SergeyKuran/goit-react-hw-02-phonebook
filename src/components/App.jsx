@@ -32,7 +32,9 @@ class App extends Component {
 
   // Метод добавлення об'єкта у масив
   addObject = props => {
-    const find = this.state.contacts.find(el => el.name === props.name);
+    const find = this.state.contacts.find(
+      el => el.name.toLowerCase() === props.name.toLowerCase()
+    );
 
     // Умова
     if (find) {
